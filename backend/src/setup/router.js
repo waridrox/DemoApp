@@ -4,13 +4,13 @@ const createPolls = require('../handlers/create-polls')
 
 const createPollsValidator = require('../validators/create-polls')
 
-module.exports = (app, client) => { //recieve both the app and client data
+module.exports = (app, db) => { //recieve both the app and db instance data
 
     const router = new Router()
 
-    router.post('/polls', createPollsValidator, createPolls(client)) 
+    router.post('/polls', createPollsValidator, createPolls(db)) 
     //createPollsValidator middleware runs first following the order of execution
-    //passing client to the createPolls handler
+    //passing db instance to the createPolls handler
 
     app.use(router)
 

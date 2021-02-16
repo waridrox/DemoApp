@@ -7,15 +7,17 @@ const app = Express()
 
 setupMiddleware(app)
 
-setupDatabase()//returns a promise
-.then((client) => {
-
-    setupRouter(app, client) //calling the func inside the setupdatabase since we cannot access client data directly
+async function start() {
+    const db = await setupDatabase() //resolves with a db instance
+    setupRouter(app, db) //passing the db instance
     
     // console.log(client)
 
     app.listen(4000, () => {
         console.log('Server is running on port 4000');
     }) 
-})
+}
+
+
+start()
 .catch(console.error)
