@@ -10,7 +10,7 @@ const createPollsValidator = require('../validators/create-polls')
 
 const createVotesValidator = require('../validators/create-votes')
 
-module.exports = (app, db) => { //recieve both the app and db instance data
+module.exports = (app, db, redisDb) => { //recieves app, db, redisDb instance data
 
     const router = new Router()
 
@@ -19,7 +19,7 @@ module.exports = (app, db) => { //recieve both the app and db instance data
     //passing db instance to the createPolls handler
 
     //to include the new route to the polls section
-    router.put('/polls/:poll', createVotesValidator, createVotes(db)) //passing new route called poll
+    router.put('/polls/:poll', createVotesValidator, createVotes(db, redisDb))
 
     //just to get the poll status
     router.get('/polls/:poll', getPoll(db))
